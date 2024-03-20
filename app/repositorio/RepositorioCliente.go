@@ -2,7 +2,7 @@
 package repositorio
 
 import (
-	"github.com/pedroph23/app-fastfood-lambda/app/dominio"
+	"github.com/mvgv/lambda-auth/app/dominio"
 )
 
 type RepositorioCliente interface {

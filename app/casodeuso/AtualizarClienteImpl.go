@@ -4,9 +4,9 @@ import (
 	"crypto/md5"
 	"encoding/hex"
 
-	"github.com/pedroph23/app-fastfood-lambda/app/apresentacao"
-	"github.com/pedroph23/app-fastfood-lambda/app/dominio"
-	"github.com/pedroph23/app-fastfood-lambda/app/repositorio"
+	"github.com/mvgv/lambda-auth/app/apresentacao"
+	"github.com/mvgv/lambda-auth/app/dominio"
+	"github.com/mvgv/lambda-auth/app/repositorio"
 )
 
 type AtualizarClienteImpl struct {

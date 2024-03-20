@@ -10,10 +10,10 @@ import (
 
 	"github.com/aws/aws-lambda-go/events"
 	"github.com/aws/aws-lambda-go/lambda"
-	"github.com/pedroph23/app-fastfood-lambda/app/apresentacao"
-	"github.com/pedroph23/app-fastfood-lambda/app/casodeuso"
-	"github.com/pedroph23/app-fastfood-lambda/app/controladores"
-	"github.com/pedroph23/app-fastfood-lambda/app/repositorio"
+	"github.com/mvgv/lambda-auth/app/apresentacao"
+	"github.com/mvgv/lambda-auth/app/casodeuso"
+	"github.com/mvgv/lambda-auth/app/controladores"
+	"github.com/mvgv/lambda-auth/app/repositorio"
 )
 
 type Response struct {

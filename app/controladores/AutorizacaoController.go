@@ -4,7 +4,7 @@ import (
 	"fmt"
 
 	"github.com/aws/aws-lambda-go/events"
-	"github.com/pedroph23/app-fastfood-lambda/app/casodeuso"
+	"github.com/mvgv/lambda-auth/app/casodeuso"
 )
 
 type AutorizarcaoController struct {

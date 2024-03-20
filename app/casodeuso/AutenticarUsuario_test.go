@@ -3,8 +3,8 @@ package casodeuso_test
 import (
 	"testing"
 
-	"github.com/pedroph23/app-fastfood-lambda/app/casodeuso"
-	"github.com/pedroph23/app-fastfood-lambda/app/dominio"
+	"github.com/mvgv/lambda-auth/app/casodeuso"
+	"github.com/mvgv/lambda-auth/app/dominio"
 	"github.com/stretchr/testify/assert"
 )
 

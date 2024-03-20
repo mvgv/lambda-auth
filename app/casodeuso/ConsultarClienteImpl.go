@@ -3,8 +3,8 @@ package casodeuso
 import (
 	"fmt"
 
-	"github.com/pedroph23/app-fastfood-lambda/app/dominio"
-	"github.com/pedroph23/app-fastfood-lambda/app/repositorio"
+	"github.com/mvgv/lambda-auth/app/dominio"
+	"github.com/mvgv/lambda-auth/app/repositorio"
 )
 
 type ConsultarClienteImpl struct {

@@ -5,7 +5,7 @@ import (
 	"fmt"
 
 	"github.com/golang-jwt/jwt"
-	"github.com/pedroph23/app-fastfood-lambda/app/dominio"
+	"github.com/mvgv/lambda-auth/app/dominio"
 )
 
 type AutenticarUsuarioImpl struct{}

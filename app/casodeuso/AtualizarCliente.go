@@ -1,8 +1,8 @@
 package casodeuso
 
 import (
-	"github.com/pedroph23/app-fastfood-lambda/app/apresentacao"
-	"github.com/pedroph23/app-fastfood-lambda/app/dominio"
+	"github.com/mvgv/lambda-auth/app/apresentacao"
+	"github.com/mvgv/lambda-auth/app/dominio"
 )
 
 type AtualizarCliente interface {

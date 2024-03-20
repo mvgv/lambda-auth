@@ -5,8 +5,8 @@ import (
 
 	"github.com/stretchr/testify/assert"
 
-	"github.com/pedroph23/app-fastfood-lambda/app/controladores"
-	"github.com/pedroph23/app-fastfood-lambda/app/dominio"
+	"github.com/mvgv/lambda-auth/app/controladores"
+	"github.com/mvgv/lambda-auth/app/dominio"
 )
 
 // MockConsultarCliente simula o caso de uso ConsultarCliente.

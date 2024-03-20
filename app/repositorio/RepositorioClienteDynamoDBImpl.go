@@ -9,7 +9,7 @@ import (
 	"github.com/aws/aws-sdk-go/aws/session"
 	"github.com/aws/aws-sdk-go/service/dynamodb"
 	"github.com/aws/aws-sdk-go/service/dynamodb/dynamodbattribute"
-	"github.com/pedroph23/app-fastfood-lambda/app/dominio"
+	"github.com/mvgv/lambda-auth/app/dominio"
 )
 
 type RepositorioClienteDynamoDBImpl struct {
@@ -31,7 +31,7 @@ func (r *RepositorioClienteDynamoDBImpl) SalvarCliente(cliente *dominio.Cliente)
 
 	input := &dynamodb.PutItemInput{
 		Item:      av,
-		TableName: aws.String("ClienteAppFastfood"),
+		TableName: aws.String("FuncionariosHackathon"),
 	}
 
 	_, err = r.svc.PutItem(input)
@@ -67,7 +67,7 @@ func (r *RepositorioClienteDynamoDBImpl) AtualizarCliente(cliente *dominio.Clien
 		Key: map[string]*dynamodb.AttributeValue{
 			"ID": {S: aws.String(cliente.ID)}, // Supondo que "ID" é a chave primária
 		},
-		TableName:                 aws.String("ClienteAppFastfood"),
+		TableName:                 aws.String("FuncionariosHackathon"),
 		UpdateExpression:          aws.String(updateExpression),
 		ExpressionAttributeValues: expressionAttributeValues,
 		ExpressionAttributeNames:  expressionAttributeNames, // Adiciona os nomes de atributos alternativos
@@ -85,7 +85,7 @@ func (r *RepositorioClienteDynamoDBImpl) BuscarClientePorID(idCliente string) (*
 				S: aws.String(idCliente),
 			},
 		},
-		TableName: aws.String("ClienteAppFastfood"),
+		TableName: aws.String("FuncionariosHackathon"),
 	}
 
 	result, err := r.svc.GetItem(input)

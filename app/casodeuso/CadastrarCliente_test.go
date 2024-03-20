@@ -5,9 +5,9 @@ import (
 
 	"github.com/stretchr/testify/assert"
 
-	"github.com/pedroph23/app-fastfood-lambda/app/apresentacao"
-	"github.com/pedroph23/app-fastfood-lambda/app/casodeuso"
-	"github.com/pedroph23/app-fastfood-lambda/app/repositorio"
+	"github.com/mvgv/lambda-auth/app/apresentacao"
+	"github.com/mvgv/lambda-auth/app/casodeuso"
+	"github.com/mvgv/lambda-auth/app/repositorio"
 )
 
 func TestCadastrarCliente_CadastrarCliente(t *testing.T) {

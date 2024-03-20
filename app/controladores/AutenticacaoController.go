@@ -3,7 +3,7 @@ package controladores
 import (
 	"fmt"
 
-	"github.com/pedroph23/app-fastfood-lambda/app/casodeuso"
+	"github.com/mvgv/lambda-auth/app/casodeuso"
 )
 
 type AutenticacaoController struct {
