@@ -24,6 +24,7 @@ jobs:
   
     - name: Initialize Go Module
       run: |
+        rm -rf go.mod go.sum
         go mod init github.com/mvgv/lambda-auth # Inicializa o módulo Go na pasta "app"
   
     - name: Download Dependencies
