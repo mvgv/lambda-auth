@@ -3,6 +3,7 @@ package controladores
 import (
 	"fmt"
 
+	"github.com/mvgv/lambda-auth/app/apresentacao"
 	"github.com/mvgv/lambda-auth/app/casodeuso"
 )
 
@@ -18,14 +19,18 @@ func NewAutenticacaoController(consultarClienteUC casodeuso.ConsultarCliente, au
 	}
 }
 
-func (c *AutenticacaoController) Handle(idCliente string) ([]byte, error) {
+func (c *AutenticacaoController) Handle(clienteEntrada apresentacao.ClienteDTO) ([]byte, error) {
 	var token string
 
-	cliente, err := c.consultarClienteUC.ConsultarCliente(idCliente)
+	cliente, err := c.consultarClienteUC.ConsultarCliente(clienteEntrada.Email)
 	if err != nil {
 		return nil, fmt.Errorf("failed to authenticate client: %v", err)
 	}
 
+	senhaValidada, err := c.autenticacaoClienteUC.validarSenha(clienteEntrada.Senha, cliente.Senha)
+	if err != nil || senhaValidada == false {
+		return nil, fmt.Errorf("failed to authenticate client: %v", err)
+	}
 	token, err = c.autenticacaoClienteUC.AutenticarCliente(cliente)
 	if err != nil {
 		return nil, fmt.Errorf("failed to authenticate client: %v", err)
