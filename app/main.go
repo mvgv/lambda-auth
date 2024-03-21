@@ -91,7 +91,7 @@ func Handler(ctx context.Context, req events.APIGatewayProxyRequest,
 	case "POST":
 		if strings.HasSuffix(req.Path, "/auth") {
 			return AutenticacaoClienteHandler(ctx, req, autenticacaoClienteUC, consultarClienteUC)
-		} else if req.Path == "/clientes" {
+		} else if req.Path == "/funcionarios" {
 			return CadastroClienteHandler(ctx, req, cadastrarClienteUC)
 		}
 	case "GET":

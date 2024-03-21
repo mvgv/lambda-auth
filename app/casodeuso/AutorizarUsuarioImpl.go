@@ -24,7 +24,7 @@ func (uc *AutorizarUsuarioImpl) AutorizarCliente(tokenString string) (bool, stri
 
 	claims, _ := token.Claims.(jwt.MapClaims)
 
-	if claims["iss"] != "appfastfood" {
+	if claims["iss"] != "hackathoncompany.com.br" {
 		// Se os requisitos não forem atendidos, bloqueie a requisição]
 		fmt.Println("Bloqueando requisição")
 		return false, ""
