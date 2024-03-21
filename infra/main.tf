@@ -6,7 +6,7 @@ variable "TF_LAMBDA_ZIP_PATH" {
   type = string
 }
 
-resource "aws_lambda_function" "example" {
+resource "aws_lambda_function" "lambda-auth" {
   function_name = "lambda-auth"
   role         = aws_iam_role.example.arn
   handler      = "main"
@@ -16,14 +16,14 @@ resource "aws_lambda_function" "example" {
 
   environment {
     variables = {
-      EXAMPLE_ENV_VAR = "example"
+      EXAMPLE_ENV_VAR = "lambda-auth"
     }
   }
 }
 
 resource "aws_iam_role_policy" "lambda_exec_policy" {
   name = "crud-api-exec-role-policy"
-  role = aws_iam_role.example.id
+  role = aws_iam_role.lambda-auth.id
 
   policy = <<EOF
 {
@@ -40,7 +40,7 @@ EOF
 }
 
 resource "aws_iam_role" "lambda-auth" {
-  name = "example"
+  name = "lambda-auth"
   
   assume_role_policy = jsonencode({
     Version = "2012-10-17",
@@ -58,7 +58,7 @@ resource "aws_iam_role" "lambda-auth" {
 
 resource "aws_iam_role_policy_attachment" "lambda-auth" {
   policy_arn = "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
-  role       = aws_iam_role.example.name
+  role       = aws_iam_role.lambda-auth.name
 }
 
 
