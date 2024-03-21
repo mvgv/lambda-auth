@@ -38,7 +38,12 @@ func AutenticacaoClienteHandler(ctx context.Context, req events.APIGatewayProxyR
 	consultarClienteUC casodeuso.ConsultarCliente) (events.APIGatewayProxyResponse, error) {
 	// TODO: Implementar a lógica de autenticação do cliente
 	controller := controladores.NewAutenticacaoController(consultarClienteUC, autenticacaoClienteUC)
-	respBody, err := controller.Handle(req.PathParameters["id_funcionario"])
+	var clienteEntrada *apresentacao.ClienteDTO
+	err := json.Unmarshal([]byte(req.Body), &clienteEntrada)
+	if err != nil {
+		return events.APIGatewayProxyResponse{}, fmt.Errorf("failed to handle request: %v", err)
+	}
+	respBody, err := controller.Handle(clienteEntrada)
 	if err != nil {
 		return events.APIGatewayProxyResponse{StatusCode: http.StatusNotFound, Body: "mensagem: Funcionario não encontrado"}, fmt.Errorf("failed to handle request: %v", err)
 	}
