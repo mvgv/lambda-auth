@@ -27,7 +27,7 @@ func (c *AutenticacaoController) Handle(clienteEntrada apresentacao.ClienteDTO) 
 		return nil, fmt.Errorf("failed to authenticate client: %v", err)
 	}
 
-	senhaValidada, err := c.autenticacaoClienteUC.validarSenha(clienteEntrada.Senha, cliente.Senha)
+	senhaValidada, err := c.autenticacaoClienteUC.ValidarSenha(clienteEntrada.Senha, cliente.Senha)
 	if err != nil || senhaValidada == false {
 		return nil, fmt.Errorf("failed to authenticate client: %v", err)
 	}
