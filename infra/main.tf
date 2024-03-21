@@ -39,7 +39,7 @@ resource "aws_iam_role_policy" "lambda_exec_policy" {
 EOF
 }
 
-resource "aws_iam_role" "example" {
+resource "aws_iam_role" "lambda-auth" {
   name = "example"
   
   assume_role_policy = jsonencode({
@@ -56,7 +56,7 @@ resource "aws_iam_role" "example" {
   })
 }
 
-resource "aws_iam_role_policy_attachment" "example" {
+resource "aws_iam_role_policy_attachment" "lambda-auth" {
   policy_arn = "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
   role       = aws_iam_role.example.name
 }
