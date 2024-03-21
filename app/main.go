@@ -78,7 +78,7 @@ func ConsultaClienteHandler(ctx context.Context, req events.APIGatewayProxyReque
 	}
 
 	returnJson, _ := json.Marshal(apresentacao.NewClienteDTO(respBody.Email,
-		respBody.Status, ""))
+		"", respBody.Status))
 
 	return events.APIGatewayProxyResponse{
 		StatusCode: http.StatusOK,
