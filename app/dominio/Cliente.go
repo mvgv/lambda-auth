@@ -1,11 +1,11 @@
 package dominio
 
+import "golang.org/x/crypto/bcrypt"
+
 type Cliente struct {
-	CPF    string
-	ID     string
-	Nome   string
 	Email  string
 	Status string
+	Senha  string
 }
 
 type ValidationError struct {
@@ -17,13 +17,16 @@ func (e *ValidationError) Error() string {
 	return e.Field + ": " + e.Message
 }
 
-func NewCliente(cpf, id, nome, email, status string) (*Cliente, error) {
+func NewCliente(email, status, senha string) (*Cliente, error) {
+	hashedSenha, err := bcrypt.GenerateFromPassword([]byte(senha), bcrypt.DefaultCost)
+
+	if err != nil {
+		return nil, err
+	}
 
 	return &Cliente{
-		CPF:    cpf,
-		ID:     id,
-		Nome:   nome,
 		Email:  email,
 		Status: status,
+		Senha:  string(hashedSenha),
 	}, nil
 }

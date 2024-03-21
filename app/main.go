@@ -38,9 +38,9 @@ func AutenticacaoClienteHandler(ctx context.Context, req events.APIGatewayProxyR
 	consultarClienteUC casodeuso.ConsultarCliente) (events.APIGatewayProxyResponse, error) {
 	// TODO: Implementar a lógica de autenticação do cliente
 	controller := controladores.NewAutenticacaoController(consultarClienteUC, autenticacaoClienteUC)
-	respBody, err := controller.Handle(req.PathParameters["id_cliente"])
+	respBody, err := controller.Handle(req.PathParameters["id_funcionario"])
 	if err != nil {
-		return events.APIGatewayProxyResponse{StatusCode: http.StatusNotFound, Body: "mensagem: Cliente não encontrado"}, fmt.Errorf("failed to handle request: %v", err)
+		return events.APIGatewayProxyResponse{StatusCode: http.StatusNotFound, Body: "mensagem: Funcionario não encontrado"}, fmt.Errorf("failed to handle request: %v", err)
 	}
 	returnJson, _ := json.Marshal(apresentacao.NewAuthDTO(string(respBody)))
 	return events.APIGatewayProxyResponse{
@@ -67,13 +67,13 @@ func CadastroClienteHandler(ctx context.Context, req events.APIGatewayProxyReque
 func ConsultaClienteHandler(ctx context.Context, req events.APIGatewayProxyRequest,
 	consultarClienteUC casodeuso.ConsultarCliente) (events.APIGatewayProxyResponse, error) {
 	controller := controladores.NewConsultaClienteController(consultarClienteUC)
-	respBody, err := controller.Handle(req.PathParameters["id_cliente"])
+	respBody, err := controller.Handle(req.PathParameters["id_funcionario"])
 	if err != nil {
-		return events.APIGatewayProxyResponse{StatusCode: http.StatusNotFound, Body: "mensagem: Cliente não encontrado"}, fmt.Errorf("failed to handle request: %v", err)
+		return events.APIGatewayProxyResponse{StatusCode: http.StatusNotFound, Body: "mensagem: Funcionario não encontrado"}, fmt.Errorf("failed to handle request: %v", err)
 	}
 
-	returnJson, _ := json.Marshal(apresentacao.NewClienteDTO(respBody.ID, respBody.CPF, respBody.Nome, respBody.Email,
-		respBody.Status))
+	returnJson, _ := json.Marshal(apresentacao.NewClienteDTO(respBody.Email,
+		respBody.Status, ""))
 
 	return events.APIGatewayProxyResponse{
 		StatusCode: http.StatusOK,
@@ -81,27 +81,10 @@ func ConsultaClienteHandler(ctx context.Context, req events.APIGatewayProxyReque
 	}, nil
 }
 
-func AtualizaClienteHandler(ctx context.Context,
-	req events.APIGatewayProxyRequest,
-	atualizarClienteUC casodeuso.AtualizarCliente,
-	consultarClienteUC casodeuso.ConsultarCliente) (events.APIGatewayProxyResponse, error) {
-	controller := controladores.NewAtualizarClienteController(atualizarClienteUC, consultarClienteUC)
-	respBody, err := controller.Handle(req.PathParameters["id_cliente"], req.Body)
-	if err != nil {
-		return events.APIGatewayProxyResponse{StatusCode: http.StatusNotFound, Body: "mensagem: Cliente não encontrado"}, fmt.Errorf("failed to handle request: %v", err)
-	}
-
-	return events.APIGatewayProxyResponse{
-		StatusCode: http.StatusOK,
-		Body:       string(respBody),
-	}, nil
-}
-
 func Handler(ctx context.Context, req events.APIGatewayProxyRequest,
 	autenticacaoClienteUC casodeuso.AutenticarUsuario,
 	consultarClienteUC casodeuso.ConsultarCliente,
-	cadastrarClienteUC casodeuso.CadastrarCliente,
-	atualizarClienteUC casodeuso.AtualizarCliente) (events.APIGatewayProxyResponse, error) {
+	cadastrarClienteUC casodeuso.CadastrarCliente) (events.APIGatewayProxyResponse, error) {
 
 	log.Printf("req.Path: %s\n", req.Path)
 	switch req.HTTPMethod {
@@ -113,11 +96,7 @@ func Handler(ctx context.Context, req events.APIGatewayProxyRequest,
 		}
 	case "GET":
 		return ConsultaClienteHandler(ctx, req, consultarClienteUC)
-
-	case "PATCH":
-		return AtualizaClienteHandler(ctx, req, atualizarClienteUC, consultarClienteUC)
 	}
-
 	return events.APIGatewayProxyResponse{
 		StatusCode: http.StatusNotFound,
 		Body:       http.StatusText(http.StatusNotFound),
@@ -130,7 +109,6 @@ func main() {
 	consultarClienteUC := casodeuso.NewConsultarClienteImpl(clienteRepository)
 	cadastrarClienteUC := casodeuso.NewCadastrarClienteImpl(clienteRepository)
 	autorizarUsuarioUC := casodeuso.NewAutorizarUsuarioImpl()
-	atualizarClienteUC := casodeuso.NewAtualizarClienteImpl(clienteRepository)
 
 	lambda.Start(func(ctx context.Context, req map[string]interface{}) (interface{}, error) {
 		fmt.Printf("req: %v\n", req)
@@ -147,7 +125,7 @@ func main() {
 				return nil, fmt.Errorf("event type not supported")
 			}
 			fmt.Printf("proxyRequest: %v\n", proxyRequestObj)
-			return Handler(ctx, proxyRequestObj, autenticacaoClienteUC, consultarClienteUC, cadastrarClienteUC, atualizarClienteUC)
+			return Handler(ctx, proxyRequestObj, autenticacaoClienteUC, consultarClienteUC, cadastrarClienteUC)
 		}
 
 		// Verificar se é um evento de autorização

@@ -37,8 +37,8 @@ func (controller *CadastroClienteController) Handle(requestBody string) ([]byte,
 	}
 
 	response := map[string]string{
-		"message":    "Cliente cadastrado com sucesso",
-		"id_cliente": cliente.ID,
+		"message": "Cliente cadastrado com sucesso",
+		"email":   cliente.Email,
 	}
 	respBody, err := json.Marshal(response)
 	if err != nil {

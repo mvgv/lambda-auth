@@ -2,9 +2,6 @@
 package casodeuso
 
 import (
-	"crypto/md5"
-	"encoding/hex"
-
 	"github.com/mvgv/lambda-auth/app/apresentacao"
 	"github.com/mvgv/lambda-auth/app/dominio"
 	"github.com/mvgv/lambda-auth/app/repositorio"
@@ -21,14 +18,11 @@ func NewCadastrarClienteImpl(clienteRepository repositorio.RepositorioCliente) *
 }
 
 func (uc *CadastrarClienteImpl) CadastrarCliente(inputCliente apresentacao.ClienteDTO) (*dominio.Cliente, error) {
-	hash := md5.Sum([]byte(inputCliente.CPF))
 
 	cliente, err := dominio.NewCliente(
-		inputCliente.CPF,
-		hex.EncodeToString(hash[:]),
-		inputCliente.Nome,
 		inputCliente.Email,
 		"ATIVO",
+		inputCliente.Senha,
 	)
 
 	if err != nil {

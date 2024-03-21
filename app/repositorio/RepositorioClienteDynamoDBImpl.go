@@ -65,7 +65,7 @@ func (r *RepositorioClienteDynamoDBImpl) AtualizarCliente(cliente *dominio.Clien
 
 	input := &dynamodb.UpdateItemInput{
 		Key: map[string]*dynamodb.AttributeValue{
-			"ID": {S: aws.String(cliente.ID)}, // Supondo que "ID" é a chave primária
+			"email": {S: aws.String(cliente.Email)},
 		},
 		TableName:                 aws.String("FuncionariosHackathon"),
 		UpdateExpression:          aws.String(updateExpression),
@@ -81,7 +81,7 @@ func (r *RepositorioClienteDynamoDBImpl) AtualizarCliente(cliente *dominio.Clien
 func (r *RepositorioClienteDynamoDBImpl) BuscarClientePorID(idCliente string) (*dominio.Cliente, error) {
 	input := &dynamodb.GetItemInput{
 		Key: map[string]*dynamodb.AttributeValue{
-			"ID": {
+			"email": {
 				S: aws.String(idCliente),
 			},
 		},

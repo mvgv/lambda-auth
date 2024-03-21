@@ -5,6 +5,5 @@ import (
 )
 
 type AutenticarUsuario interface {
-	AutenticarClienteAnonimo() (string, error)
 	AutenticarCliente(cliente *dominio.Cliente) (string, error)
 }
