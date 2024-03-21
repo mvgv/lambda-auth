@@ -8,7 +8,7 @@ variable "TF_LAMBDA_ZIP_PATH" {
 
 resource "aws_lambda_function" "lambda-auth" {
   function_name = "lambda-auth"
-  role         = aws_iam_role.example.arn
+  role         = aws_iam_role.lambda-auth.arn
   handler      = "main"
   runtime      = "provided.al2023"
 
