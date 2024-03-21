@@ -28,7 +28,7 @@ func (controller *CadastroClienteController) Handle(requestBody string) ([]byte,
 	err := json.Unmarshal([]byte(requestBody), &clienteDTO)
 
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("failed to unmarshal request body: %v", err)
 	}
 
 	cliente, err = controller.cadastroClienteUC.CadastrarCliente(clienteDTO)

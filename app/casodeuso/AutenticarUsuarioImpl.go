@@ -30,10 +30,15 @@ func (uc *AutenticarUsuarioImpl) AutenticarCliente(cliente *dominio.Cliente) (st
 }
 
 func (uc *AutenticarUsuarioImpl) ValidarSenha(senhaEntrada string, senhaArmazenada string) (bool, error) {
-
+	fmt.Println("Validando senha")
+	fmt.Printf("Senha armazenada: %v ", senhaArmazenada)
+	fmt.Printf("Senha entrada: %v ", senhaEntrada)
 	err := bcrypt.CompareHashAndPassword([]byte(senhaArmazenada), []byte(senhaEntrada))
+
 	if err != nil {
-		return false, nil
+		fmt.Printf("failed to compare passwords: %v", err)
+		return false, err
 	}
+	fmt.Println("Senha validada com sucesso")
 	return true, nil
 }

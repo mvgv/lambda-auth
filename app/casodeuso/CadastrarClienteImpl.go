@@ -2,6 +2,8 @@
 package casodeuso
 
 import (
+	"fmt"
+
 	"github.com/mvgv/lambda-auth/app/apresentacao"
 	"github.com/mvgv/lambda-auth/app/dominio"
 	"github.com/mvgv/lambda-auth/app/repositorio"
@@ -26,12 +28,12 @@ func (uc *CadastrarClienteImpl) CadastrarCliente(inputCliente apresentacao.Clien
 	)
 
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("failed to create client: %v", err)
 	}
 
 	err = uc.clienteRepository.SalvarCliente(cliente)
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("failed to save client on db: %v", err)
 	}
 
 	return cliente, nil

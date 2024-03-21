@@ -24,7 +24,9 @@ func NewRepositorioClienteImpl() *RepositorioClienteDynamoDBImpl {
 }
 
 func (r *RepositorioClienteDynamoDBImpl) SalvarCliente(cliente *dominio.Cliente) error {
+	fmt.Printf("Cliente: %+v\n", cliente)
 	av, err := dynamodbattribute.MarshalMap(cliente)
+	fmt.Printf("av: %+v\n", av)
 	if err != nil {
 		return err
 	}
@@ -81,7 +83,7 @@ func (r *RepositorioClienteDynamoDBImpl) AtualizarCliente(cliente *dominio.Clien
 func (r *RepositorioClienteDynamoDBImpl) BuscarClientePorID(idCliente string) (*dominio.Cliente, error) {
 	input := &dynamodb.GetItemInput{
 		Key: map[string]*dynamodb.AttributeValue{
-			"email": {
+			"Email": {
 				S: aws.String(idCliente),
 			},
 		},

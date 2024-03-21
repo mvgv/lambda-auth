@@ -24,16 +24,16 @@ func (c *AutenticacaoController) Handle(clienteEntrada *apresentacao.ClienteDTO)
 
 	cliente, err := c.consultarClienteUC.ConsultarCliente(clienteEntrada.Email)
 	if err != nil {
-		return nil, fmt.Errorf("failed to authenticate client: %v", err)
+		return nil, fmt.Errorf("failed to get client: %v", err)
 	}
-
+	fmt.Println("Iniciando validacao de senha")
 	senhaValidada, err := c.autenticacaoClienteUC.ValidarSenha(clienteEntrada.Senha, cliente.Senha)
-	if err != nil || senhaValidada == false {
-		return nil, fmt.Errorf("failed to authenticate client: %v", err)
+	if err != nil {
+		return nil, fmt.Errorf("failed to authenticate client due to wrong pw: %v, senha validada: %v", err, senhaValidada)
 	}
 	token, err = c.autenticacaoClienteUC.AutenticarCliente(cliente)
 	if err != nil {
-		return nil, fmt.Errorf("failed to authenticate client: %v", err)
+		return nil, fmt.Errorf("failed to authenticate client cant create token: %v", err)
 	}
 
 	return []byte(token), nil

@@ -18,7 +18,7 @@ func (e *ValidationError) Error() string {
 }
 
 func NewCliente(email, status, senha string) (*Cliente, error) {
-	hashedSenha, err := bcrypt.GenerateFromPassword([]byte(senha), bcrypt.DefaultCost)
+	hashedSenha, err := bcrypt.GenerateFromPassword([]byte(senha), 4)
 
 	if err != nil {
 		return nil, err
