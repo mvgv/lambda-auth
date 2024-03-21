@@ -19,7 +19,7 @@ func NewAutenticacaoController(consultarClienteUC casodeuso.ConsultarCliente, au
 	}
 }
 
-func (c *AutenticacaoController) Handle(clienteEntrada apresentacao.ClienteDTO) ([]byte, error) {
+func (c *AutenticacaoController) Handle(clienteEntrada *apresentacao.ClienteDTO) ([]byte, error) {
 	var token string
 
 	cliente, err := c.consultarClienteUC.ConsultarCliente(clienteEntrada.Email)
